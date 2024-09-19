@@ -1,3 +1,16 @@
-.react-antd-treetable .ant-table-tbody > tr > td {
+.wqstart-tree-table .ant-table-tbody > tr > td {
   border-bottom-color: transparent;
+}
+
+.wqstart-tree-table-cell {
+  position: relative;
+}
+
+.wqstart-tree-table-cell-content {
+  display: flex;
+}
+
+.wqstart-tree-table-filter-cell {
+  display: flex;
+  align-items: center;
 }

@@ -1,4 +1,11 @@
-import 'antd/dist/antd.css';
+/*
+ * @Author: wqstart
+ * @Date: 2024-09-03 17:08:49
+ * @LastEditors: wqstart
+ * @LastEditTime: 2024-09-12 20:16:56
+ * @Description: 文件简介
+ */
+// import 'antd/dist/antd.css';
 import React from 'react';
 import { WqstartTreeTable } from '../../src';
 

@@ -1,3 +1,10 @@
+/*
+ * @Author: wqstart
+ * @Date: 2024-09-03 16:48:30
+ * @LastEditors: wqstart
+ * @LastEditTime: 2024-09-19 16:08:23
+ * @Description: 文件简介
+ */
 import { INTERNAL_LEVEL, INTERNAL_PARENT } from "./constant";
 import React, { useMemo } from "react";
 
@@ -23,9 +30,6 @@ export const IndentCell = (props: any) => {
     for (let index = 1; index < level; index++) {
       indents.push(index * indentSize);
     }
-    console.log('====================================');
-    console.log('indents', indents);
-    console.log('====================================');
     return indents.map((indent) => (
       <div
         style={{
@@ -45,15 +49,15 @@ export const IndentCell = (props: any) => {
   if (!isParentExpanded || headDataIndex !== dataIndex) {
     return (
       <td>
-        <div className="react-antd-treetable-cell-content">{children}</div>
+        <div className="wqstart-tree-table-cell-content">{children}</div>
       </td>
     );
   }
 
   return (
-    <td className={`react-antd-treetable-cell`}>
+    <td className={`wqstart-tree-table-cell`}>
       {indent}
-      <div className="react-antd-treetable-cell-content">{children}</div>
+      <div className="wqstart-tree-table-cell-content">{children}</div>
     </td>
   );
 }
