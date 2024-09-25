@@ -1,11 +1,11 @@
 /*
  * @Author: wqstart
- * @Date: 2024-09-03 16:48:30
+ * @Date: 2024-09-23 17:02:46
  * @LastEditors: wqstart
- * @LastEditTime: 2024-09-23 14:56:11
+ * @LastEditTime: 2024-09-25 16:38:25
  * @Description: 文件简介
  */
-import { INTERNAL_LEVEL, INTERNAL_PARENT } from "./constant";
+import { INTERNAL_LEVEL, INTERNAL_PARENT } from "../../constant";
 import React, { useMemo } from "react";
 
 export const IndentCell = (props: any) => {
@@ -18,6 +18,8 @@ export const IndentCell = (props: any) => {
     dataIndex,
     rowKey,
   } = props;
+  console.log('indentSize', indentSize);
+  
   // 父元素是否展开
   const isParentExpanded = expandedRowKeys?.includes(
     record?.[INTERNAL_PARENT]?.[rowKey]

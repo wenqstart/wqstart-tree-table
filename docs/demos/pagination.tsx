@@ -2,11 +2,12 @@
  * @Author: wqstart
  * @Date: 2024-09-19 16:02:34
  * @LastEditors: wqstart
- * @LastEditTime: 2024-09-19 16:24:00
+ * @LastEditTime: 2024-09-23 16:49:38
  * @Description: 文件简介
  */
 import React, { useState } from 'react';
-import { WqstartTreeTable } from '../../src';
+import { useLazyLoadPlugin, WqstartTreeTable } from '../../src';
+import { usePaginationPlugin } from '../../src';
 
 
 const columns = [
@@ -90,11 +91,18 @@ const DefaultExample = () => {
         onLoad: onLoadMore,
         hasNextKey: 'has_next',
       }}
-      paginationOptions={{
-        totalKey: 'next_size',
-        pageSize: 4,
-        onChange: onLoadMore,
-      }}
+      // paginationOptions={{
+      //   totalKey: 'next_size',
+      //   pageSize: 4,
+      //   onChange: onLoadMore,
+      // }}
+      plugins={[
+        usePaginationPlugin({
+          totalKey: 'next_size',
+          pageSize: 4,
+          onChange: onLoadMore,
+        }),
+      ]}
     />
   );
 };

@@ -2,12 +2,12 @@
  * @Author: wqstart
  * @Date: 2024-09-12 17:23:33
  * @LastEditors: wqstart
- * @LastEditTime: 2024-09-12 17:25:47
+ * @LastEditTime: 2024-09-25 17:10:44
  * @Description: 文件简介
  */
 import React, { useState } from 'react';
 // import TreeTable, { useLazyloadPlugin } from '../../src';
-import { WqstartTreeTable } from '../../src';
+import { useLazyLoadPlugin, WqstartTreeTable } from '../../src';
 
 const columns = [
   {
@@ -68,12 +68,19 @@ const DefaultExample = () => {
       expandable={{
         expandedRowKeys: expandedKeys,
         onExpandedRowsChange: setExpandedKeys,
+        indentSize: 50
       }}
       columns={columns}
-      lazyLoadProps={{
-        onLoad: onLoadMore,
-        hasNextKey: 'has_next',
-      }}
+      // lazyLoadProps={{
+      //   onLoad: onLoadMore,
+      //   hasNextKey: 'has_next',
+      // }}
+      plugins={[
+        useLazyLoadPlugin({
+          onLoad: onLoadMore,
+          hasNextKey: 'has_next',
+        }),
+      ]}
     />
   );
 };

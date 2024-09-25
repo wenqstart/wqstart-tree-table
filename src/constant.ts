@@ -2,7 +2,7 @@
  * @Author: wqstart
  * @Date: 2024-09-03 16:48:30
  * @LastEditors: wqstart
- * @LastEditTime: 2024-09-19 16:19:27
+ * @LastEditTime: 2024-09-23 16:08:40
  * @Description: 文件简介
  */
 export const INTERNAL_PREFIX = '__wqstart_treeTable';
@@ -17,6 +17,7 @@ export const INTERNAL_PARENT = createInternalConstant('parent');
 // 树节点属性：标记该节点正在加载更多子节点
 export const INTERNAL_IS_LOADING = createInternalConstant('is_loading');
 export const INTERNAL_INDENT_SIZE = 24
+export const INTERNAL_ROW_KEY = 'id'
 export const INTERNAL_CHILDREN_COLUMN_NAME = 'children'
 export const INTERNAL_LOADING_KEY = createInternalConstant('loading');
 // 树节点属性：标记该节点用来渲染分页器

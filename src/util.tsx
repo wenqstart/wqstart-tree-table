@@ -2,13 +2,13 @@
  * @Author: wqstart
  * @Date: 2024-09-03 16:48:30
  * @LastEditors: wqstart
- * @LastEditTime: 2024-09-10 19:26:29
+ * @LastEditTime: 2024-09-23 16:19:27
  * @Description: 请填写简介
  */
 import { INTERNAL_LEVEL, INTERNAL_PARENT } from './constant';
-// 设置树形结构的层级和父节点
+// *设置树形结构的层级和父节点
 /**
- * @description: 
+ * @description: 给每个节点添加层级（level）和父节点（parent） 属性
  * @param {any} treeList
  * @param {string} childrenColumnName
  * @param {any} callback
