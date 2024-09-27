@@ -2,11 +2,10 @@
  * @Author: wqstart
  * @Date: 2024-09-12 17:23:33
  * @LastEditors: wqstart
- * @LastEditTime: 2024-09-25 17:10:44
+ * @LastEditTime: 2024-09-26 11:12:31
  * @Description: 文件简介
  */
 import React, { useState } from 'react';
-// import TreeTable, { useLazyloadPlugin } from '../../src';
 import { useLazyLoadPlugin, WqstartTreeTable } from '../../src';
 
 const columns = [
@@ -50,10 +49,12 @@ const data = [
   },
 ];
 
-const wait = (time) => new Promise((resolve) => setTimeout(resolve, time));
+const wait = (time) => new Promise((resolve) => {setTimeout(resolve, time)});
 
 const DefaultExample = () => {
   const onLoadMore = async (record) => {
+    console.log('record', record);
+    
     await wait(1000);
     const res = await getData();
     return res;
