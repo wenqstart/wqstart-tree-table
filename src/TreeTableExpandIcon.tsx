@@ -18,6 +18,7 @@ const iconStyle = {
 export const TreeTableExpandIcon = (
   props: any,
 ) => {
+  console.log('props', props);
   const { expandIcon, ...expandIconProps } = props;
   const { expanded, expandable, onExpand, record } = expandIconProps;
   if (record[INTERNAL_IS_LOADING]) {

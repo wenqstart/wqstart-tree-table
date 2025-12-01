@@ -2,7 +2,7 @@
  * @Author: wqstart
  * @Date: 2024-09-03 17:08:49
  * @LastEditors: wqstart
- * @LastEditTime: 2024-09-25 17:06:03
+ * @LastEditTime: 2025-05-29 20:16:05
  * @Description: 文件简介
  */
 // import 'antd/dist/antd.css';
@@ -24,7 +24,7 @@ const columns = [
 const data = [
     {
       id: `${Math.random()}`,
-      function_name: `React Tree Reconciliation`,
+      function_name: `React Tree`,
       count: 100,
       children: [
         {

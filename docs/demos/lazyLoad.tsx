@@ -2,7 +2,7 @@
  * @Author: wqstart
  * @Date: 2024-09-12 17:23:33
  * @LastEditors: wqstart
- * @LastEditTime: 2024-09-26 11:12:31
+ * @LastEditTime: 2025-05-29 20:16:12
  * @Description: 文件简介
  */
 import React, { useState } from 'react';
@@ -43,7 +43,7 @@ const rootKey = Math.random();
 const data = [
   {
     id: rootKey,
-    function_name: `React Tree Reconciliation`,
+    function_name: `React Tree`,
     count: 100,
     has_next: true,
   },

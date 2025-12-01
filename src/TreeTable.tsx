@@ -22,7 +22,7 @@ import { traverseTree } from './util';
 
 function TreeTable(rawProps: any) {
   const [internalExpandedRowKeys, setInternalExpandedRowKeys] = useState([]);
-  const { expandable } = rawProps
+  const { expandable } = rawProps;
   // *强制渲染
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -34,35 +34,35 @@ function TreeTable(rawProps: any) {
   let expandIcon: any;
   let restExpandableProps;
   let onExpandProp: any;
-    // 有 expandable 属性
-    if (expandable && expandable?.expandedRowKeys) {
-      const {
-        expandedRowKeys: expandableExpandedRowKeys,
-        onExpandedRowsChange: expandableOnExpandedRowsChange,
-        onExpand: expandableOnExpand,
-        expandIcon: expandableExpandIcon,
-        indentSize: expandableIndentSize = INTERNAL_INDENT_SIZE,
-        childrenColumnName:
-          expandableChildrenColumnName = INTERNAL_CHILDREN_COLUMN_NAME,
-        ...restProps
-      } = expandable;
-      expandedRowKeys = expandableExpandedRowKeys;
-      setExpandedRowKeys = expandableOnExpandedRowsChange;
-      expandIcon = expandableExpandIcon;
-      onExpandProp = expandableOnExpand;
-      restExpandableProps = restProps;
-      indentSize = expandableIndentSize;
-      childrenColumnName = expandableChildrenColumnName;
-    } else {
-      expandedRowKeys = internalExpandedRowKeys;
-      setExpandedRowKeys = setInternalExpandedRowKeys;
-      indentSize = INTERNAL_INDENT_SIZE;
-      childrenColumnName = INTERNAL_CHILDREN_COLUMN_NAME;
-    }
+  // 有 expandable 属性
+  if (expandable && expandable?.expandedRowKeys) {
+    const {
+      expandedRowKeys: expandableExpandedRowKeys,
+      onExpandedRowsChange: expandableOnExpandedRowsChange,
+      onExpand: expandableOnExpand,
+      expandIcon: expandableExpandIcon,
+      indentSize: expandableIndentSize = INTERNAL_INDENT_SIZE,
+      childrenColumnName:
+        expandableChildrenColumnName = INTERNAL_CHILDREN_COLUMN_NAME,
+      ...restProps
+    } = expandable;
+    expandedRowKeys = expandableExpandedRowKeys;
+    setExpandedRowKeys = expandableOnExpandedRowsChange;
+    expandIcon = expandableExpandIcon;
+    onExpandProp = expandableOnExpand;
+    restExpandableProps = restProps;
+    indentSize = expandableIndentSize;
+    childrenColumnName = expandableChildrenColumnName;
+  } else {
+    expandedRowKeys = internalExpandedRowKeys;
+    setExpandedRowKeys = setInternalExpandedRowKeys;
+    indentSize = INTERNAL_INDENT_SIZE;
+    childrenColumnName = INTERNAL_CHILDREN_COLUMN_NAME;
+  }
   const defaultTableProps = {
     pagination: false,
   };
-  // 重新整理 props
+  // √ 重新整理 props
   function resolveProps(props: any) {
     let {
       rowKey = INTERNAL_ROW_KEY,
@@ -96,8 +96,7 @@ function TreeTable(rawProps: any) {
     ...restProps
   } = props;
 
-
-
+  // √ 给某个节点动态追加子树节点
   function replaceChildList(record: any, childList: any) {
     // console.log('replaceChildList');
 
@@ -108,6 +107,7 @@ function TreeTable(rawProps: any) {
       dataSource: childList,
       parentNode: record,
     });
+    // ToDo
     forceUpdate();
   }
   const pluginContext = {
@@ -122,7 +122,7 @@ function TreeTable(rawProps: any) {
   // 自定义单元格内容
   const components = pluginContainer.mergeComponents();
 
-  // *给每一列每个单元格添加 record 属性
+  // √ 根据启用的插件重写 columns
   const rewrittenColumns = columns?.map((rawColumn: any) => {
     const column = Object.assign({}, rawColumn);
     pluginContainer.onColumn(column);
@@ -135,12 +135,13 @@ function TreeTable(rawProps: any) {
     pluginContainer.onExpand(expanded, record);
     onExpandProp?.(expanded, record);
   }
+
+  // √ 设置树形结构每个节点的层级和父节点
   function rewriteTree({
     dataSource = [] as any[],
     // 在动态追加子树节点的时候 需要手动传入 parent 引用
     parentNode = null as any,
   }) {
-    // 在动态追加子树节点（replaceChildList）的时候 需要手动传入父节点的 level 否则 level 会从 1 开始计算
     const startLevel = parentNode?.[INTERNAL_LEVEL] || 0;
     // 切换分页器替换掉子数组时需要重新给父节点添加分页器标识
     if (parentNode) {
@@ -151,9 +152,11 @@ function TreeTable(rawProps: any) {
       dataSource,
       childrenColumnName,
       (treeNode: any, parent: any, level: number) => {
-        // 记录节点的层级（replaceChildList）
+        // 有 parentNode 时需要手动加上父节点的 level，否则 level 会从 1 开始计算
         treeNode[INTERNAL_LEVEL] = level + startLevel;
-        // 记录节点的父节点（replaceChildList）
+        // 1、parent: 遍历时赋的值
+        // 2、parentNode: parent为 null 即这条数据为数组第一层的数据
+        // 3、treeNode[INTERNAL_PARENT]: parent 和 parentNode 都为 null 则不修改值
         treeNode[INTERNAL_PARENT] =
           parent || parentNode || treeNode[INTERNAL_PARENT];
         // * onRecord

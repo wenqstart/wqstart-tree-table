@@ -2,7 +2,7 @@
  * @Author: wqstart
  * @Date: 2024-09-19 19:59:53
  * @LastEditors: wqstart
- * @LastEditTime: 2024-09-25 17:01:36
+ * @LastEditTime: 2025-12-01 16:23:31
  * @Description: 文件简介
  */
 export const usePluginContainer = (props: any, context: any) => {
@@ -18,6 +18,15 @@ export const usePluginContainer = (props: any, context: any) => {
     for (const plugin of newPlugins) {
       tempMap[plugin[key]] = plugin;
     }
+    // {
+    //   'indentLine': {
+    //           key: 'indentLine',
+    //           components,
+    //           onColumn,
+    //    },
+    //    ......
+    // }
+
     return Object.values(tempMap);
   }
 
@@ -26,6 +35,7 @@ export const usePluginContainer = (props: any, context: any) => {
   console.log('plugins', plugins);
 
   const container = {
+    // 自定义单元格
     onColumn(column: any) {
       for (const plugin of plugins) {
         console.log('plugin', plugin?.onColumn);
@@ -33,19 +43,19 @@ export const usePluginContainer = (props: any, context: any) => {
         plugin?.onColumn?.(column);
       }
     },
-
+    // 自定义行数据(节点数据)
     onRecord(record: any) {
       for (const plugin of plugins) {
         plugin?.onRecord?.(record);
       }
     },
-
+    // 自定义展开操作
     onExpand(expanded: any, record: any) {
       for (const plugin of plugins) {
         plugin?.onExpand?.(expanded, record);
       }
     },
-    // 把 components 合并起来（后面的会覆盖前面的）
+    // 把 components 合并起来（后面的会覆盖前面的）todo
     mergeComponents() {
       const deepMerge = (componentsList: any[]) => {
         const mergeResult = {} as any;
@@ -56,9 +66,9 @@ export const usePluginContainer = (props: any, context: any) => {
           const componentKeys = Object.keys(components);
           for (const componentKey of componentKeys) {
             const value = components[componentKey]; // componentKey: body
-            if (typeof value === 'function') {
+            if (typeof value === 'function') { // cell
               mergeResult[componentKey] = value;
-            } else if (typeof value === 'object') {
+            } else if (typeof value === 'object') { // body
               mergeResult[componentKey] = deepMerge(
                 filteredComponentsList.map((item) => item[componentKey]),
               );
@@ -68,7 +78,7 @@ export const usePluginContainer = (props: any, context: any) => {
         return mergeResult;
       };
       const allComponents = [
-        ...(props.components || []),
+        ...(props.components || []), // 用户传入的 components
         ...(plugins?.map((plugin: any) => plugin?.components) || []),
       ];
       return deepMerge(allComponents);
